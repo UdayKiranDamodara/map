@@ -1,4 +1,4 @@
-const data = [
+let data = [
   [34.07849680756057, -118.40605703207703],
   [33.2167977986513, -117.22657713704665],
   [34.10468697846329, -118.41883751200126],
@@ -54,38 +54,69 @@ const data = [
   [34.27395912737143, -83.89768139530783],
   [42.32464309060922, -83.48899037151831],
 ]
-
+// data = [[52, 0]]
 const getMapDimensions = () => {
   const mapElemnt = document.getElementById('mapElement')
   //   console.log(mapElemnt)
   const width = mapElemnt.offsetWidth
   const height = mapElemnt.offsetHeight
-  console.log(width, height)
+  // console.log(width, height)
   return { width, height }
 }
 
 const createMarkerDiv = ([lat, long]) => {
   const parentDiv = document.createElement('div')
   parentDiv.className = 'marker absolute'
-  const { width, height } = getMapDimensions()
-  const left = ((long + 180 - 20) * width) / 360
-  const top = height / 2 - (height / 2) * Math.sin((lat * Math.PI) / 180)
-  parentDiv.style.left = `${left}px`
-  parentDiv.style.top = `${top}px`
-  console.log('left, top: ', left, top)
+  // const { width, height } = getMapDimensions()
+  // const left = ((long + 180 - 20) * width) / 360
+  // const top = height / 2 - (height / 2) * Math.sin((lat * Math.PI) / 180)
+  // parentDiv.style.left = `${left}px`
+  // parentDiv.style.top = `${top}px`
+  // console.log('left, top: ', left, top)
   parentDiv.innerHTML = `
-  <div>
+  <div class='rm-spacing'>
   <img src="./location-marker.svg" alt="marker" class="markerIcon" />
   <span class="tooltiptext">Info to be displayed goes here!</span>
 </div>`
   return parentDiv
 }
 
+const applyPositions = () => {
+  const { width, height } = getMapDimensions()
+  markerWidth = (width * 0.75) / 80
+  markerHeight = (markerWidth * 150) / 113
+  markersArray.forEach((item, index) => {
+    const lat = data[index][0]
+    const long = data[index][1]
+    const left = ((long + 180) * width) / 360 - markerWidth
+    const ratio = 1 - Math.sin((lat * Math.PI) / 180)
+    console.log('ratio: ', ratio, height, ratio / height)
+    const top = (ratio * height) / 2 - markerHeight
+    // height / 2 - (height / 2) * Math.sin((lat * Math.PI) / 180) - markerHeight
+    // ((-lat + 90) * height) / 180 - markerHeight
+    item.style.left = `${left}px`
+    item.style.top = `${top}px`
+    console.log('left, top: ', left, top)
+  })
+}
+
 const innerContainer = document.getElementById('innerContainer')
+let markersArray = []
 
 setTimeout(() => {
-  // data.forEach((item) => {
-  //   innerContainer.appendChild(createMarkerDiv(item))
-  // })
-  innerContainer.appendChild(createMarkerDiv([51, 0]))
+  markersArray = data.map((item) => {
+    const tempDiv = createMarkerDiv(item)
+    innerContainer.appendChild(tempDiv)
+    return tempDiv
+  })
+  console.log(markersArray)
+  applyPositions()
+  // innerContainer.appendChild(createMarkerDiv([51, 0]))
 }, 1000)
+
+visualViewport.addEventListener('resize', () => {
+  applyPositions()
+  console.log(getMapDimensions())
+  // console.log(window.innerWidth * 0.8)
+  // return
+})
