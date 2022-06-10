@@ -54,7 +54,7 @@ let data = [
   [34.27395912737143, -83.89768139530783],
   [42.32464309060922, -83.48899037151831],
 ]
-// data = [[52, 0]]
+// data = [[90, -180]]
 const getMapDimensions = () => {
   const mapElemnt = document.getElementById('mapElement')
   //   console.log(mapElemnt)
@@ -88,12 +88,13 @@ const applyPositions = () => {
   markersArray.forEach((item, index) => {
     const lat = data[index][0]
     const long = data[index][1]
-    const left = ((long + 180) * width) / 360 - markerWidth
+    const left = ((long + 180) * width) / 360 - markerWidth / 2
     const ratio = 1 - Math.sin((lat * Math.PI) / 180)
     console.log('ratio: ', ratio, height, ratio / height)
-    const top = (ratio * height) / 2 - markerHeight
-    // height / 2 - (height / 2) * Math.sin((lat * Math.PI) / 180) - markerHeight
-    // ((-lat + 90) * height) / 180 - markerHeight
+    const top =
+      // (ratio * height) / 2 - markerHeight
+      // height / 2 - (height / 2) * Math.sin((lat * Math.PI) / 180) - markerHeight
+      ((-lat + 90) * height) / 180 - markerHeight
     item.style.left = `${left}px`
     item.style.top = `${top}px`
     console.log('left, top: ', left, top)

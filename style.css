@@ -6,7 +6,7 @@
 html {
   /* height: 100vh;
   width: 100vw; */
-  background-color: aqua;
+  /* background-color: aqua; */
   font-size: 50px;
 }
 
@@ -19,7 +19,7 @@ body {
 }
 
 #mapElement {
-  width: 80vw;
+  width: 60vw;
 }
 
 ul {
@@ -32,6 +32,7 @@ ul {
 
 #innerContainer {
   position: relative;
+  font-size: 0;
 }
 
 .relative {
