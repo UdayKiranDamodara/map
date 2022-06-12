@@ -4,9 +4,6 @@
 }
 
 html {
-  /* height: 100vh;
-  width: 100vw; */
-  /* background-color: aqua; */
   font-size: 50px;
 }
 
@@ -33,6 +30,8 @@ ul {
 #innerContainer {
   position: relative;
   font-size: 0;
+  height: 33vw;
+  overflow-y: hidden;
 }
 
 .relative {
@@ -49,7 +48,6 @@ ul {
   width: 0.75vw;
   padding: 0;
   margin: 0;
-  /* width: 10px; */
 }
 
 .marker:hover {
@@ -75,7 +73,7 @@ ul {
 .marker .tooltiptext::after {
   content: ' ';
   position: absolute;
-  bottom: 100%; /* At the top of the tooltip */
+  bottom: 100%;
   left: 50%;
   margin-left: -5px;
   border-width: 5px;
@@ -97,15 +95,3 @@ ul {
 .rm-spacing {
   font-size: 0;
 }
-/* .zero {
-  padding: 0;
-  min-height: 0;
-  max-height: 20;
-  font-size: 0;
-}
-
-.one {
-  width: 10px;
-  height: 10px;
-  background-color: red;
-} */
